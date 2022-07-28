@@ -18,24 +18,24 @@ spec:
 {{- if .Values.ingress.tls }}
   tls:
   {{- range .Values.ingress.tls }}
-    - hosts:
-      {{- range .hosts }}
-        - {{ . }}
-      {{- end }}
-      secretName: {{ .secretName }}
+  - hosts:
+    {{- range .hosts }}
+      - {{ . }}
+    {{- end }}
+    secretName: {{ .secretName }}
   {{- end }}
 {{- end }}
   rules:
   {{- range .Values.ingress.hosts }}
-    - host: {{ . }}
-      http:
-        paths:
-        - path: {{ $ingressPath }}
-          pathType: {{$ingressPathtype}}
-            backend:
-              service:
-                name: {{ $fullName }}
-                port: 
-                  number: {{ $servicePort }}
+  - host: {{ . }}
+    http:
+      paths:
+      - path: {{ $ingressPath }}
+        pathType: ImplementationSpecific
+        backend:
+            service:
+              name: {{ $fullName }}
+              port:
+                number: {{ $servicePort }}
   {{- end }}
 {{- end }}
